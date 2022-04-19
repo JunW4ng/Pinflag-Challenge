@@ -1,8 +1,9 @@
 import express from 'express'
 
-import './config/environment'
-import routes from './routes'
-import './models'
+// ? import './config/environment'
+import routes from './routes/index.js'
+
+// ? import './models'
 
 const app = express()
 const port = process.env.PORT || 5000
