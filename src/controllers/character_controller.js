@@ -1,11 +1,11 @@
 import models from "../models/index.js";
 import BaseController from "./base.js";
 import getCharacters from "../utils/clients/rick-morty.client.js";
+import getCharaterByName from "../utils/clients/rick-morty-by-name.client.js";
 
 export default class CharacterController extends BaseController {
   CharacterController() {}
 
-  // TODO  agregar  objeto info contador pagesnull
   async index(req, res) {
     const { num } = req.params;
     try {
@@ -22,44 +22,62 @@ export default class CharacterController extends BaseController {
           });
         });
       });
-      return super.Success(res, characterArray);
+      return super.Success(res, [
+        {
+          info: { count: characterArray.length, pages: null },
+          results: characterArray,
+        },
+      ]);
     } catch (err) {
-      if (err) super.InternalError(res, err);
+      return super.InternalError(res, err);
     }
   }
 
   async create(req, res) {
     try {
-      const { num } = req.params;
-      const characterData = [];
-
-      await getCharacters(num)
-        .then((data) => {
-          data.forEach((char) => {
-            characterData.push({
-              name: char.name,
-              status: char.status,
-              species: char.species,
-              origin: char.origin.name,
-            });
-          });
-        })
-        .then(() => {
-          const { name, status, species, origin } = characterData[0];
-          models.create({
-            name: name,
-            status: status,
-            species: species,
-            origin: origin,
-          });
-        });
-      return super.Success(res, "");
+      const { name, status, species, origin } = req.body;
+      const createCharacter = await models.create({
+        name: name,
+        status: status,
+        species: species,
+        origin: origin,
+      });
+      return super.Success(res, createCharacter);
     } catch (err) {
       return super.InternalError(res, err);
     }
   }
 
   async show(req, res) {
-    return super.Success(res, "");
+    try {
+      const { name } = req.body;
+      const findCharacter = await models.findAll({
+        where: {
+          name: name,
+        },
+      });
+
+      if (findCharacter.length === 0) {
+        try {
+          const characterFound = [];
+          await getCharaterByName(name).then((data) => {
+            data.forEach((char) => {
+              characterFound.push({
+                name: char.name,
+                status: char.status,
+                species: char.species,
+                origin: char.origin.name,
+              });
+            });
+          });
+          return super.Success(res, characterFound);
+        } catch (err) {
+          return super.NotFound(res, err);
+        }
+      }
+      return super.Success(res, findCharacter);
+    } catch (err) {
+      return super.NotFound(res, err);
+    }
   }
 }
