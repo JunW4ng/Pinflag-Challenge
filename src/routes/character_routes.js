@@ -6,6 +6,7 @@ const routes = app.Router();
 
 // TODO  CREATE ROUTES
 routes.get("/index/:num", new CharacterController().index);
-routes.post("/create/:num", new CharacterController().create);
+routes.post("/create", new CharacterController().create);
+routes.get("/show", new CharacterController().show);
 
 export default routes;

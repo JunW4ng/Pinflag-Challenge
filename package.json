@@ -5,6 +5,7 @@
   "description": "Pinflag test API",
   "main": "src/server.js",
   "scripts": {
+    "test": "jest",
     "lint": "eslint --fix src",
     "build": "babel src --ignore src/tests --out-dir build --copy-files --no-copy-ignored --source-maps inline",
     "start": "npm run lint && npm run build && node ./src/server.js"
@@ -40,6 +41,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
     "gulp-babel": "^8.0.0",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.6",
     "sequelize-auto": "^0.6.5"
   }
