@@ -1,10 +1,8 @@
+import { DataTypes, Op } from "sequelize";
+import sequelize from "../config/sequelize.js";
+import Character from "../models/character_model.js";
 
-import { DataTypes, Op } from 'sequelize'
-import sequelize from '../config/sequelize'
+const models = Character(sequelize, DataTypes);
 
-const models = {}
-
-models.Character = require('./character_model').default(sequelize, DataTypes)
-
-export { sequelize, Op }
-export default models
+export { sequelize, Op };
+export default models;
