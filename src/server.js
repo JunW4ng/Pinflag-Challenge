@@ -9,7 +9,7 @@ import swaggerUi from "swagger-ui-express";
 // JSON loader
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const swaggerDocument = require("../swagger/swagger.json");
+const swaggerDocument = require("./swagger/swagger.json");
 
 const app = express();
 const port = process.env.PORT || 5000;
