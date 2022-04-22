@@ -9,7 +9,11 @@
 
 **Run the app**
 ---
-`node src/server.js` 
+`node src/server.js`
+
+**Swagger**
+---
+`http://127.0.0.1:5000/api-docs`
 
 # REST API
 ---
