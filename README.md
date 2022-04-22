@@ -15,7 +15,7 @@
 ---
 `http://127.0.0.1:5000/api-docs`
 
-### `.env` file needed
+**`.env` file needed**
 ---
 This file should have:
 - *DATABASE_USERNAME*
