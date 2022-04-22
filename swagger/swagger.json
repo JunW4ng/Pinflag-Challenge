@@ -1,0 +1,143 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Rick & Morty API",
+    "description": "This API can search, create and storage characters from Rick&Morty API.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000/character"
+    }
+  ],
+  "paths": {
+    "/index/{num}": {
+      "get": {
+        "summary": "Returns a N number of characters.",
+        "responses": {
+          "200": {
+            "description": "A JSON of characters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer"
+                        },
+                        "pages": {
+                          "type": "integer",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Character"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "num",
+            "in": "path",
+            "required": true,
+            "description": "Amount of characters.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/create": {
+      "post": {
+        "summary": "Create a new character.",
+        "responses": {
+          "200": {
+            "description": "Data of a created character.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Character"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Character"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/show": {
+      "get": {
+        "summary": "Find a character by name.",
+        "responses": {
+          "200": {
+            "description": "Data of a found character.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Character"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "Name of a character.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Character": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "species": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
