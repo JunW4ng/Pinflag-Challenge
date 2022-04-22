@@ -23,12 +23,13 @@ export default class CharacterController extends BaseController {
           });
         });
       });
-      return super.Success(res, [
+      const result = [
         {
           info: { count: characterArray.length, pages: null },
           results: characterArray,
         },
-      ]);
+      ];
+      return super.Success(res, result);
     } catch (err) {
       return super.InternalError(res, err);
     }
