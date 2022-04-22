@@ -6,6 +6,7 @@ import getCharaterByName from "../utils/clients/rick-morty-by-name.client.js";
 export default class CharacterController extends BaseController {
   CharacterController() {}
 
+  // Returns characters
   async index(req, res) {
     const { num } = req.params;
     try {
@@ -33,6 +34,7 @@ export default class CharacterController extends BaseController {
     }
   }
 
+  // Create a character
   async create(req, res) {
     try {
       const { name, status, species, origin } = req.body;
@@ -48,10 +50,12 @@ export default class CharacterController extends BaseController {
     }
   }
 
+  // Find a character
   async show(req, res) {
     try {
-      const { name } = req.body;
+      const { name } = req.query;
       const findCharacter = await models.findAll({
+        attributes: ["name", "status", "species", "origin"],
         where: {
           name: name,
         },
