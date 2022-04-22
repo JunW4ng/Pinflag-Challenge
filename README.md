@@ -15,6 +15,16 @@
 ---
 `http://127.0.0.1:5000/api-docs`
 
+### `.env` file needed
+---
+This file should have:
+- *DATABASE_USERNAME*
+- *DATABASE_PASSWORD*
+- *DATABASE_NAME*
+- *DATABASE_HOST*
+- *DATABASE_PORT*
+- *DATABASE_URI*
+
 # REST API
 ---
 An API that can search, create and storage characters from Rick and Morty API.
